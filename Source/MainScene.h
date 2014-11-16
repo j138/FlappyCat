@@ -1,4 +1,5 @@
-@interface MainScene : CCNode {
+#import "CCNode.h"
+@interface MainScene : CCNode <CCPhysicsCollisionDelegate> {
     CCSprite *_hero; // SpriteBuilderとつなげるheroSprite
     CCPhysicsNode *_physicsNode; // SpirteBuilderとつなげる全画面物理ノード
     

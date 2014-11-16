@@ -13,6 +13,7 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     DrawingOrderHero
 };
 
+
 -(void)didLoadFromCCB {
     _grounds = @[_ground1, _ground2];
     
@@ -22,15 +23,23 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     // set obstacles
     _obstacles = [NSMutableArray array];
     
+    // とりあえず、3つ設置
     [self spawnNewObstacle];
     [self spawnNewObstacle];
     [self spawnNewObstacle];
     
     // レンダリング順を定義
     for (CCNode *ground in _grounds) {
+        ground.physicsBody.collisionType = @"level";
         ground.zOrder = DrawingOrderGround;
     }
     _hero.zOrder = DrawingOrderHero;
+    
+    // デリゲートを設定
+    _physicsNode.collisionDelegate = self;
+    
+    // 主人公の当たり判定を設定
+    _hero.physicsBody.collisionType = @"hero";
 }
 
 // 1F毎に描画処理
@@ -140,6 +149,13 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     [_physicsNode addChild:obstacle];
     [_obstacles addObject:obstacle];
 }
+
+
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero level:(CCNode *)level {
+    NSLog(@"game over!!!!!!!!!");
+    return TRUE;
+}
+
 
 -(void)onEnter {
     [super onEnter];
