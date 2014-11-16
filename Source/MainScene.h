@@ -8,5 +8,12 @@
     NSArray *_grounds; // 地面ループ処理用
     NSTimeInterval _sinceTouch; // touch after sec
     NSMutableArray *_obstacles; // 障害物格納用配列
+    CCButton *_restartButton;
+    
+    BOOL _isGameOver; // ゲームオーバーフラグ
+    CGFloat _scrollSpeed;
+    
+    NSInteger _points;
+    CCLabelTTF *_scoreLabel;
 }
 @end

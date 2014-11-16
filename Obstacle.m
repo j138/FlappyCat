@@ -27,6 +27,7 @@ static const CGFloat pipeRange = maxYPositionTopPipe - minYPositionTopPipe;
     // 当たり判定
     _topPipe.physicsBody.collisionType = @"level";
     _topPipe.physicsBody.sensor = TRUE;
+    
     _bottomPipe.physicsBody.collisionType = @"level";
     _bottomPipe.physicsBody.sensor = TRUE;
     

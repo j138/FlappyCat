@@ -3,7 +3,7 @@
 
 @implementation MainScene
 
-static const CGFloat scrollSpeed = 80.f;
+//static const CGFloat scrollSpeed = 80.f;
 static const CGFloat firstObstaclePosition = 280.f; // 障害物の初期値
 static const CGFloat distanceBetweenObstacles = 160.f; // 障害物と次の障害物の距離
 
@@ -19,6 +19,9 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     
     // enabled touch
     self.userInteractionEnabled = TRUE;
+
+    // スクロールスピード
+    _scrollSpeed = 80.f;
     
     // set obstacles
     _obstacles = [NSMutableArray array];
@@ -40,14 +43,17 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
     
     // 主人公の当たり判定を設定
     _hero.physicsBody.collisionType = @"hero";
+    
+    // DEBUG: デバックモード
+    // _physicsNode.debugDraw = YES;
 }
 
 // 1F毎に描画処理
 -(void)update:(CCTime)delta {
     
     // 猫を右に進める
-    _hero.position = ccp(_hero.position.x + scrollSpeed*delta, _hero.position.y);
-    _physicsNode.position = ccp(_physicsNode.position.x - (scrollSpeed*delta), _physicsNode.position.y);
+    _hero.position = ccp(_hero.position.x + _scrollSpeed*delta, _hero.position.y);
+    _physicsNode.position = ccp(_physicsNode.position.x - (_scrollSpeed*delta), _physicsNode.position.y);
     
     // 速度をclamp
     float yVelocity = clampf(_hero.physicsBody.velocity.y, -1 * MAXFLOAT, 200.f);
@@ -116,16 +122,18 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 }
 
 -(void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
-    // 力積を与える
-    [_hero.physicsBody applyImpulse:ccp(0, 20000.f)];
-    
-    // 角速度を与える
-    // TODO: fix param
-    [_hero.physicsBody applyAngularImpulse:1000000.f];
-    
-    _sinceTouch = 0.f;
-    
-    // CCLOG(@"_heroPos: %f, %f", _hero.position.x, _hero.position.y);
+    if(!_isGameOver) {
+        // 力積を与える
+        [_hero.physicsBody applyImpulse:ccp(0, 20000.f)];
+        
+        // 角速度を与える
+        // TODO: fix param
+        [_hero.physicsBody applyAngularImpulse:1000000.f];
+        
+        _sinceTouch = 0.f;
+        
+        // CCLOG(@"_heroPos: %f, %f", _hero.position.x, _hero.position.y);
+    }
 }
 
 - (void)spawnNewObstacle {
@@ -152,10 +160,41 @@ typedef NS_ENUM(NSInteger, DrawingOrder) {
 
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero level:(CCNode *)level {
-    NSLog(@"game over!!!!!!!!!");
+    [self gameOver];
     return TRUE;
 }
 
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero goal:(CCNode *)goal {
+    [goal removeFromParent];
+    _points++;
+    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+    
+    return TRUE;
+}
+
+-(void)restart {
+    CCScene *scene = [CCBReader loadAsScene:@"MainScene"];
+    [[CCDirector sharedDirector] replaceScene:scene];
+}
+
+
+-(void)gameOver {
+    if(!_isGameOver) {
+        _scrollSpeed = 0.f;
+        _isGameOver = TRUE;
+        
+        _restartButton.visible = TRUE;
+        _hero.rotation = 90.f;
+        _hero.physicsBody.allowsRotation = FALSE;
+        [_hero stopAllActions];
+        
+        CCActionMoveBy *moveBy = [CCActionMoveBy actionWithDuration:0.2f position:ccp(-2, 2)];
+        CCActionInterval *reverseMovement = [moveBy reverse];
+        CCActionSequence *shakeSequence = [CCActionSequence actionWithArray:@[moveBy, reverseMovement]];
+        CCActionEaseBounce *bounce = [CCActionEaseBounce actionWithAction:shakeSequence];
+        [self runAction:bounce];
+    }
+}
 
 -(void)onEnter {
     [super onEnter];

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		383AA00F1A1893DA00726590 /* Obstacle.m in Sources */ = {isa = PBXBuildFile; fileRef = 383AA00E1A1893DA00726590 /* Obstacle.m */; };
+		383AA0131A18A53900726590 /* Goal.m in Sources */ = {isa = PBXBuildFile; fileRef = 383AA0121A18A53900726590 /* Goal.m */; };
 		5B12100C19748281004C1E1D /* BridgeKitV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B12100B19748281004C1E1D /* BridgeKitV3.framework */; };
 		5B121029197484DA004C1E1D /* BridgeKitV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B12100B19748281004C1E1D /* BridgeKitV3.framework */; };
 		5B12102A197484DD004C1E1D /* FlappyCatActivity.java in Sources */ = {isa = PBXBuildFile; fileRef = 5B12101B19748413004C1E1D /* FlappyCatActivity.java */; };
@@ -171,6 +172,8 @@
 /* Begin PBXFileReference section */
 		383AA00D1A1893DA00726590 /* Obstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Obstacle.h; sourceTree = "<group>"; };
 		383AA00E1A1893DA00726590 /* Obstacle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Obstacle.m; sourceTree = "<group>"; };
+		383AA0111A18A53900726590 /* Goal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Goal.h; sourceTree = "<group>"; };
+		383AA0121A18A53900726590 /* Goal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Goal.m; sourceTree = "<group>"; };
 		5B12100919748273004C1E1D /* libEGL.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libEGL.so; path = /usr/lib/armv7a/libEGL.so; sourceTree = SDKROOT; };
 		5B12100B19748281004C1E1D /* BridgeKitV3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BridgeKitV3.framework; path = System/Library/Frameworks/BridgeKitV3.framework; sourceTree = SDKROOT; };
 		5B12100F197483EE004C1E1D /* ic_launcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_launcher.png; sourceTree = "<group>"; };
@@ -463,6 +466,8 @@
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				B7378992180767190076A88C /* MainScene.h */,
 				B7378993180767190076A88C /* MainScene.m */,
+				383AA0111A18A53900726590 /* Goal.h */,
+				383AA0121A18A53900726590 /* Goal.m */,
 				383AA00D1A1893DA00726590 /* Obstacle.h */,
 				383AA00E1A1893DA00726590 /* Obstacle.m */,
 				D352B48019EC608A00829775 /* MetalShaders */,
@@ -866,6 +871,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				383AA0131A18A53900726590 /* Goal.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
 				383AA00F1A1893DA00726590 /* Obstacle.m in Sources */,
