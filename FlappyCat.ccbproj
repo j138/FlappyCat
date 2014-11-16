@@ -163,10 +163,7 @@
 			<integer>1</integer>
 		</dict>
 		<key>images</key>
-		<dict>
-			<key>isDirty</key>
-			<true/>
-		</dict>
+		<dict/>
 	</dict>
 	<key>versionStr</key>
 	<string>revision : 87486f6b8d
